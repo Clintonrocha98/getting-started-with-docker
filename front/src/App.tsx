@@ -4,7 +4,7 @@ import "./styles.css";
 
 interface Task {
   id: number;
-  description: string;
+  task: string;
 }
 
 const App = () => {
@@ -31,8 +31,8 @@ const App = () => {
   const handleAddTask = async () => {
     if (task.trim() !== "") {
       try {
-        const response = await axios.post<Task>("sua-api/tasks", {
-          description: task,
+        const response = await axios.post<Task>("http://localhost:3000/tasks", {
+          task,
         });
         setTasks([...tasks, response.data]);
         setTask("");
@@ -44,7 +44,7 @@ const App = () => {
 
   const handleDeleteTask = async (taskId: number) => {
     try {
-      await axios.delete(`sua-api/tasks/${taskId}`);
+      await axios.delete(`http://localhost:3000/tasks/${taskId}`);
       setTasks(tasks.filter((t) => t.id !== taskId));
     } catch (error) {
       console.error("Erro ao excluir tarefa:", error);
@@ -64,9 +64,9 @@ const App = () => {
         <button onClick={handleAddTask}>Adicionar</button>
       </div>
       <ul>
-        {tasks.map((task) => (
+        {tasks?.map((task) => (
           <li key={task.id}>
-            {task.description}
+            {task.task}
             <button onClick={() => handleDeleteTask(task.id)}>Apagar</button>
           </li>
         ))}

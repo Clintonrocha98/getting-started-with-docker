@@ -1,7 +1,12 @@
 import express, { Request, Response } from "express";
 import { Pool } from "pg";
+import cors from "cors";
 
 const app = express();
+
+app.use(express.json());
+
+app.use(cors({ origin: true }));
 
 const pool = new Pool({
   user: "user",
@@ -10,8 +15,6 @@ const pool = new Pool({
   password: "password",
   port: 5432,
 });
-
-app.use(express.json());
 
 async function createTable() {
   try {

@@ -1,11 +1,15 @@
 version: '3'
 services:
-  app:
-    build: .
+  back:
+    build: ./back/.
     ports:
       - 3000:3000
     depends_on:
       - postgres
+  front:
+    build: ./front/.
+    ports:
+      - 8080:8080
   postgres:
     image: postgres:latest
     environment:
