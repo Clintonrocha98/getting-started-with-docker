@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 
 const pool = new Pool({
-  user: "user",
+  user: "postgres",
   host: "postgres",
   database: "postgres",
   password: "password",
